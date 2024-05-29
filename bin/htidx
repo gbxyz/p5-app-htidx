@@ -1,0 +1,7 @@
+#!/usr/bin/perl
+# PODNAME: htidx
+use App::htidx;
+use warnings;
+use strict;
+
+exit(App::htidx::main(@ARGV));
