@@ -53,7 +53,7 @@ be overwritten, otherwise it will be left as-is.
 
 =cut
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 $H = HTML::Tiny->new(mode => 'html');
 
