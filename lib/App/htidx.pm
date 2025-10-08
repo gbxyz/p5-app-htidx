@@ -4,11 +4,12 @@ use Carp;
 use Cwd qw(abs_path);
 use File::Basename qw(basename dirname);
 use File::Spec;
-use File::Temp;
 use File::stat;
+use File::Temp;
 use HTML::Tiny;
 use List::Util qw(any);
 use POSIX qw(strftime ceil);
+use URI::Escape;
 use constant {
     INDEX_FILE  => 'index.html',
     SIGNATURE   => '@~@ I was made by App::htidx @~@',
@@ -160,7 +161,7 @@ sub mkhtml {
         { class => 'htidx-directory' },
         [
             $H->td($H->a(
-                { href => '..'},
+                { href => '../'},
                 'Parent Directory'
             )),
             $H->td(strftime(TIMEFMT, localtime(stat(File::Spec->catfile(dirname($dir)))->mtime))),
@@ -173,7 +174,7 @@ sub mkhtml {
             { class => 'htidx-directory' },
             [ map { $H->td($_) } (
                 $H->a(
-                    { href => $entry},
+                    { href => uri_escape($entry).'/'},
                     he($entry.'/')
                 ),
                 strftime(TIMEFMT, localtime(stat(File::Spec->catfile($dir, $entry))->mtime)),
@@ -189,7 +190,7 @@ sub mkhtml {
             { class => 'htidx-file' },
             [ map { $H->td($_) } (
                 $H->a(
-                    { href => $entry },
+                    { href => uri_escape($entry) },
                     he($entry)
                 ),
                 strftime(TIMEFMT, localtime($stat->mtime)),
