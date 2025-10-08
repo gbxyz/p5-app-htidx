@@ -62,7 +62,7 @@ $CSS = <DATA>;
 sub main {
     help() if (any { '-h' eq $_ || '--help' eq $_ } @_);
 
-    my $dir = abs_path(shift(@_));
+    my $dir = abs_path(shift(@_) || '.');
 
     croak("Error: $dir does not exist") unless (-e $dir);
     croak("Error: $dir is not a directory") unless (-d $dir);
